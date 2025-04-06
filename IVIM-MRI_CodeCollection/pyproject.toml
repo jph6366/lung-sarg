@@ -1,0 +1,44 @@
+[project]
+name = "RADPI_IVIM-MRI"  # Replace with your project name
+version = "0.1.0"
+description = "proj desc"
+authors = [
+    {name = "Jackson", email = "jphardee@gmail.com"}  # Update with your details
+]
+requires-python = ">=3.11"  # Adjust based on your needs
+dependencies = [
+    "itk==5.4.0",
+    "numpy<2",
+    "nibabel",
+    "dipy",
+    "matplotlib",
+    "cvxpy",
+    "zenodo-get",
+    "tqdm"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-json-report",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["ivim"]
+
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]  # Equivalent to test_suite='tests'
+python_files = "test_*.py"
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')"
+]
+addopts = [
+    "-m not slow",
+    "-ra",
+]

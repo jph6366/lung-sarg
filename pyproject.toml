@@ -1,17 +1,19 @@
 [project]
-name = "lung-sarg"
+name = "osipi_sarg"
 version = "1.0.0"
-authors = [{ name = "Matt McCormick" }]
+authors = [{ name = "Jackson Hardee" }]
 dependencies = [
     "dagster-dbt==0.23.16",
     "dagster-duckdb-polars==0.23.16",
     "dagster-duckdb",
     "dagster==1.7.16",
+    "dagstermill",
     "datasets",
     "dbt-core",
     "dbt-duckdb",
     "duckdb==1.0.0",
     "huggingface_hub",
+    "zenodo-get",
     "httpx[http2]",
     "pyarrow",
     "python-slugify",
@@ -22,13 +24,12 @@ dependencies = [
 
 requires-python = ">=3.11, <=3.13"
 readme = "README.md"
-license = { text = "MIT" }
 
 [project.urls]
-Homepage = "https://radiogenomics.github.io/lung-sarg/"
-Changelog = "https://github.com/open-radiogenomics/lung-sarg/commits/main/"
-Issues = "https://github.com/open-radiogenomics/lung-sarg/issues"
-CI = "https://github.com/open-radiogenomics/lung-sarg/actions"
+Homepage = "https://osipi.ismrm.org/"
+Task_Forces = "https://osipi.ismrm.org/task-forces/"
+Issues = "https://github.com/OSIPI/TF2.4_IVIM-MRI_CodeCollection/issues"
+CI = "https://github.com/OSIPI/TF2.4_IVIM-MRI_CodeCollection/actions"
 
 [project.optional-dependencies]
 dev = ["dagster-webserver==1.7.16", "ruff"]
@@ -38,13 +39,13 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["lung_sarg"]
+packages = ["osipi_sarg"]
 
 [tool.setuptools.package-data]
-"lung_sarg" = ["../dbt/**"]
+"osipi_sarg" = ["../dbt/**"]
 
 [tool.dagster]
-module_name = "lung_sarg"
+module_name = "osipi_sarg"
 
 [tool.ruff.lint.isort]
 case-sensitive = true
@@ -56,14 +57,14 @@ channels = ["conda-forge"]
 platforms = ["win-64", "linux-64", "osx-64", "osx-arm64"]
 
 [tool.pixi.pypi-dependencies]
-lung-sarg = { path = ".", editable = true }
+osipi-sarg= { path = ".", editable = true }
 
 [tool.pixi.environments]
 default = { solve-group = "default" }
 dev = { features = ["dev"], solve-group = "default" }
 
 [tool.pixi.tasks]
-stage-samples = { cmd = "dagster job execute -j stage_idc_nsclc_radiogenomic_samples -m lung_sarg", description = "Stage IDC NSCLC Radiogenomic Samples" }
+stage-samples = { cmd = "dagster job execute -j stage_ivim_samples_job -m osipi_sarg", description = "Stage OSIPI IVIM Data Collection Samples" }
 clean = { cmd = "rm -rf data/*.parquet data/*.duckdb dbt/target dbt/dbt_packages dbt/logs", description = "Clean the project artifacts" }
 
 [tool.pixi.feature.dev.tasks]
